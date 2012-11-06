@@ -152,8 +152,16 @@ typedef uint64_t   UINTN;
 #ifndef EFIAPI                  // Forces EFI calling conventions reguardless of compiler options 
     #ifdef _MSC_EXTENSIONS
         #define EFIAPI __cdecl  // Force C calling convention for Microsoft C compiler 
+        #define efi_va_list va_list
+        #define efi_va_copy va_copy
+        #define efi_va_start va_start
+        #define efi_va_end va_end
     #else
         #define EFIAPI          // Substitute expresion to force C calling convention 
+        #define efi_va_list va_list
+        #define efi_va_copy va_copy
+        #define efi_va_start va_start
+        #define efi_va_end va_end
     #endif
 #endif
 
