@@ -59,17 +59,17 @@
 #include <efi.h>
 #include <efilib.h>
 
-EFI_STATUS _relocate (long ldbase, ElfW(Dyn) *dyn, EFI_HANDLE image, EFI_SYSTEM_TABLE *systab)
+EFI_STATUS _relocate (long ldbase, Elf32_Dyn *dyn, EFI_HANDLE image, EFI_SYSTEM_TABLE *systab)
 {
 	long relsz = 0, relent = 0;
-	ElfW(Rel) *rel = 0;
+	Elf32_Rel *rel = 0;
 	unsigned long *addr;
 	int i;
 
 	for (i = 0; dyn[i].d_tag != DT_NULL; ++i) {
 		switch (dyn[i].d_tag) {
 			case DT_REL:
-				rel = (ElfW(Rel)*)
+				rel = (Elf32_Rel*)
 					((unsigned long)dyn[i].d_un.d_ptr
 					 + ldbase);
 				break;
@@ -111,7 +111,7 @@ EFI_STATUS _relocate (long ldbase, ElfW(Dyn) *dyn, EFI_HANDLE image, EFI_SYSTEM_
 			default:
 				break;
 		}
-		rel = (ElfW(Rel)*) ((char *) rel + relent);
+		rel = (Elf32_Rel*) ((char *) rel + relent);
 		relsz -= relent;
 	}
 	return EFI_SUCCESS;
