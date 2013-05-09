@@ -85,7 +85,7 @@ Revision History
        typedef char                int8_t;
     #endif
 #elif defined(__GNUC__)
-    #include <stdint.h>
+    #include <stdint-gcc.h>
 #endif
 
 //
